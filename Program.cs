@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StressCLI.src.Cli;
+using System;
 
 namespace StressCLI
 {
@@ -6,7 +7,8 @@ namespace StressCLI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Handler handler = new Handler();
+            handler.Handle(args);
         }
     }
 }
