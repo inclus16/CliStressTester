@@ -8,6 +8,8 @@ namespace StressCLI.src.Cli
     class Handler
     {
         private readonly List<ICommand> Commands;
+
+        private ICommand ChosenCommand;
         public Handler()
         {
             Commands= AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
@@ -28,6 +30,8 @@ namespace StressCLI.src.Cli
                 CliNotifier.PrintError($"Command {args[0]} not found, type --help to list available");
                 return;
             }
+
+            ChosenCommand = command;
             command.SetData(args);
             HandleCommand(command);
         }
@@ -42,6 +46,11 @@ namespace StressCLI.src.Cli
             }
             command.PrepareData();
             command.Execute();
+        }
+
+        public void Cancel()
+        {
+            ChosenCommand.Cancel();
         }
     }
 }

@@ -124,5 +124,11 @@ namespace StressCLI.src.Cli.Commands
         {
             return "run-test";
         }
+
+        public void Cancel()
+        {
+            CliNotifier.PrinWarning("Manualy stopping execution...");
+            Executor.StopExecution();
+        }
     }
 }

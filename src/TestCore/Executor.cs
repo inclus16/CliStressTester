@@ -1,5 +1,6 @@
 ﻿using StressCLI.src.Cli;
 using StressCLI.src.Cli.Commands.Entities;
+using StressCLI.src.TestCore.ResultSetter;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -25,6 +26,8 @@ namespace StressCLI.src.TestCore
 
         private readonly HttpClient Client;
 
+        private DateTime StartedAt;
+
         public Executor()
         {
             ConfigParser = new ConfigParser();
@@ -46,6 +49,7 @@ namespace StressCLI.src.TestCore
 
         public void StartTest()
         {
+            StartedAt = DateTime.Now;
             for(int i = 0; i < ConfigParser.GetParralel(); i++)
             {
                 AddTask();
@@ -62,7 +66,7 @@ namespace StressCLI.src.TestCore
             task.EndedAt = DateTime.Now.TimeOfDay;
             Task.Run(() =>
             {
-                CliNotifier.PrintInfo($"Request finished by :{task.TotalExecutionTime} with status code: {task.Response.Result.StatusCode}");
+                CliNotifier.PrintInfo($"Request finished by: {task.TotalExecutionTime} with status code: {task.Response.Result.StatusCode}");
             });
             if (CancellationTokenSource.IsCancellationRequested)
             {
@@ -109,6 +113,19 @@ namespace StressCLI.src.TestCore
         public void StopExecution()
         {
             CancellationTokenSource.Cancel();
+            WriteResults();
+            IsComplete = false;
+        }
+
+        private void WriteResults()
+        {
+            Writer writer = new Writer();
+            writer.SetCompletedTasks(Tasks.Where(x => x.Response.IsCompletedSuccessfully))
+                .SetStartedAtTime(StartedAt)
+                .SetEndedAtTime(DateTime.Now)
+                .SetStopReason(ConfigParser.GetStopSignal())
+                .Write();
+                
         }
 
         private void AddTask()

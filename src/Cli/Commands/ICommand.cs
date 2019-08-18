@@ -19,5 +19,7 @@ namespace StressCLI.src.Cli.Commands
         string GetName();
 
         void Validate();
+
+        void Cancel();
     }
 }
