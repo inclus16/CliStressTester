@@ -67,7 +67,7 @@ namespace StressCLI.src.TestCore
         {
             RequestTask task = Tasks.Last(x => x.Response.IsCompletedSuccessfully);
             task.EndedAt = DateTime.Now.TimeOfDay;
-            Completed.Add(task);
+            Completed.Add(task);            
             CliNotifier.PrintInfo($"Request finished by: {task.TotalExecutionTime} with status code: {task.Response.Result.StatusCode}");           
             if (CancellationTokenSource.IsCancellationRequested)
             {
