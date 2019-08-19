@@ -7,6 +7,7 @@ namespace StressCLI
     class Program
     {
         private  const char STOP = 'q';
+
         static void Main(string[] args)
         {
             Handler handler = new Handler();

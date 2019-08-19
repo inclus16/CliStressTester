@@ -123,8 +123,9 @@ namespace StressCLI.src.TestCore
             writer.SetCompletedTasks(Tasks.Where(x => x.Response.IsCompletedSuccessfully))
                 .SetStartedAtTime(StartedAt)
                 .SetEndedAtTime(DateTime.Now)
-                .SetStopReason(ConfigParser.GetStopSignal())
-                .Write();
+                .SetStopReason(ConfigParser.GetStopSignal());
+            writer.Write();
+            writer.WriteResponsesCsv();
                 
         }
 
