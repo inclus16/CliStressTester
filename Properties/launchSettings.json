@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "StressCLI": {
-      "commandName": "Project",
-      "commandLineArgs": "run-test C:\\\\projects\\\\Console\\\\req.json 1 2 http://localhost:3000/?search=An 60 1 2"
-    }
-  }
-}
