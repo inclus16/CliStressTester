@@ -128,7 +128,7 @@ namespace StressCLI.src.Cli.Commands
         public void Cancel()
         {
             CliNotifier.PrinWarning("Manualy stopping execution...");
-            Executor.StopExecution();
+            Executor.StopExecution(true);
         }
     }
 }

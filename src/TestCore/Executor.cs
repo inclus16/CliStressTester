@@ -63,11 +63,8 @@ namespace StressCLI.src.TestCore
         private void OnRequestComplete()
         {
             RequestTask task = Tasks.Last(x => x.Response.IsCompletedSuccessfully);
-            task.EndedAt = DateTime.Now.TimeOfDay;
-            Task.Run(() =>
-            {
-                CliNotifier.PrintInfo($"Request finished by: {task.TotalExecutionTime} with status code: {task.Response.Result.StatusCode}");
-            });
+            task.EndedAt = DateTime.Now.TimeOfDay;           
+            CliNotifier.PrintInfo($"Request finished by: {task.TotalExecutionTime} with status code: {task.Response.Result.StatusCode}");           
             if (CancellationTokenSource.IsCancellationRequested)
             {
                 return;
@@ -110,22 +107,22 @@ namespace StressCLI.src.TestCore
             return false;
         }
 
-        public void StopExecution()
+        public void StopExecution(bool manual=false)
         {
             CancellationTokenSource.Cancel();
-            WriteResults();
+            WriteResults(manual);
             IsComplete = false;
         }
 
-        private void WriteResults()
+        private void WriteResults(bool manual)
         {
-            Writer writer = new Writer();
+            ConsoleWriter writer = new ConsoleWriter();
             writer.SetCompletedTasks(Tasks.Where(x => x.Response.IsCompletedSuccessfully))
                 .SetStartedAtTime(StartedAt)
                 .SetEndedAtTime(DateTime.Now)
-                .SetStopReason(ConfigParser.GetStopSignal());
-            writer.Write();
-            writer.WriteResponsesCsv();
+                .SetStopReason(manual?StopSignal.Manual:ConfigParser.GetStopSignal());
+            writer.PrintTotalResult();
+            writer.PrintCodesResultTable();
                 
         }
 
