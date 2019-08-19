@@ -20,6 +20,8 @@ namespace StressCLI.src.TestCore
 
         private BlockingCollection<RequestTask> Tasks;
 
+        private BlockingCollection<RequestTask> Completed;
+
         private bool IsComplete;
 
         private int RuningTasks;
@@ -33,6 +35,7 @@ namespace StressCLI.src.TestCore
             ConfigParser = new ConfigParser();
             CancellationTokenSource = new CancellationTokenSource();
             Tasks = new BlockingCollection<RequestTask>();
+            Completed = new BlockingCollection<RequestTask>();
             Client = new HttpClient();
             IsComplete = false;
         }
@@ -63,7 +66,8 @@ namespace StressCLI.src.TestCore
         private void OnRequestComplete()
         {
             RequestTask task = Tasks.Last(x => x.Response.IsCompletedSuccessfully);
-            task.EndedAt = DateTime.Now.TimeOfDay;           
+            task.EndedAt = DateTime.Now.TimeOfDay;
+            Completed.Add(task);
             CliNotifier.PrintInfo($"Request finished by: {task.TotalExecutionTime} with status code: {task.Response.Result.StatusCode}");           
             if (CancellationTokenSource.IsCancellationRequested)
             {
@@ -117,7 +121,7 @@ namespace StressCLI.src.TestCore
         private void WriteResults(bool manual)
         {
             ConsoleWriter writer = new ConsoleWriter();
-            writer.SetCompletedTasks(Tasks.Where(x => x.Response.IsCompletedSuccessfully))
+            writer.SetCompletedTasks(Completed)
                 .SetStartedAtTime(StartedAt)
                 .SetEndedAtTime(DateTime.Now)
                 .SetStopReason(manual?StopSignal.Manual:ConfigParser.GetStopSignal());

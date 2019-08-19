@@ -14,7 +14,7 @@ namespace StressCLI.src.TestCore
 
         public TimeSpan TotalExecutionTime {
             get {
-               return EndedAt - StartedAt;
+               return EndedAt-StartedAt;
             }
         }
 

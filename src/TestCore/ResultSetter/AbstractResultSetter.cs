@@ -16,7 +16,7 @@ namespace StressCLI.src.TestCore.ResultSetter
         protected ResultStruct Result;
         public AbstractResultSetter SetCompletedTasks(IEnumerable<RequestTask> tasks)
         {
-            Result.CompletedRequests = tasks.Select(x => new CompletedRequest(x)).ToArray();
+            Result.CompletedRequests = tasks.Select(x => new CompletedRequest(x)).ToArray();          
             return this;
         }
 

@@ -23,7 +23,7 @@ namespace StressCLI.src.TestCore.ResultSetter
         {
             TotalResultTable.AddRow(Result.EndedAt - Result.StartedAt,
                 Result.StopReason,
-                Result.CompletedRequests.Where(x=>x.CompletedBy>TimeSpan.Zero).Min(x => x.CompletedBy),
+                Result.CompletedRequests.Min(x => x.CompletedBy),//Where(x=>x.CompletedBy>TimeSpan.Zero).
                 Result.CompletedRequests.Max(x => x.CompletedBy),
                 Result.CompletedRequests.Length);
             TotalResultTable.Write();
