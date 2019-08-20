@@ -1,15 +1,13 @@
 ﻿using StressCLI.src.Cli.Commands.Entities;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Linq;
 using StressCLI.src.Helpers;
 using StressCLI.src.TestCore;
+using System;
+using System.IO;
+using System.Linq;
 
 namespace StressCLI.src.Cli.Commands
 {
-    class RunTest : ICommand
+    internal class RunTest : ICommand
     {
         private string[] Args;
 
@@ -113,7 +111,7 @@ namespace StressCLI.src.Cli.Commands
 
         public bool IsValid()
         {
-            return ValidationError==null;
+            return ValidationError == null;
         }
 
         public void SetData(string[] args)

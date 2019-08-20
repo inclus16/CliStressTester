@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace StressCLI.src.TestCore.ResultSetter
 {
-    class CompletedRequest
+    internal class CompletedRequest
     {
         public TimeSpan StartedAt { get; set; }
 

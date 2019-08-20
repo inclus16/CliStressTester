@@ -1,32 +1,29 @@
 ﻿using Newtonsoft.Json;
-using StressCLI.src.Cli.Commands.Entities;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace StressCLI.src.TestCore.ResultSetter
 {
-    class FileWriter:AbstractResultSetter
+    internal class FileWriter : AbstractResultSetter
     {
 
         private readonly string ArchivePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Archive");
 
         public FileWriter()
         {
-          
+
             if (!Directory.Exists(ArchivePath))
             {
                 Directory.CreateDirectory(ArchivePath);
             }
-            
+
         }
-     
+
 
         public void Write()
         {
-            string resultsFilePath = Path.Combine(ArchivePath, Result.StartedAt.ToString().Replace(' ','_').Replace(':','-') + ".json");
+            string resultsFilePath = Path.Combine(ArchivePath, Result.StartedAt.ToString().Replace(' ', '_').Replace(':', '-') + ".json");
             File.WriteAllText(resultsFilePath, JsonConvert.SerializeObject(Result));
         }
 

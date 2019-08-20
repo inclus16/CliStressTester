@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace StressCLI.src.TestCore.ResultSetter
 {
-    struct ResultStruct
+    internal struct ResultStruct
     {
         public DateTime StartedAt { get; set; }
 

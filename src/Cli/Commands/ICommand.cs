@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace StressCLI.src.Cli.Commands
+﻿namespace StressCLI.src.Cli.Commands
 {
-    interface ICommand
+    internal interface ICommand
     {
         bool IsValid();
 

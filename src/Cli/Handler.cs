@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace StressCLI.src.Cli
 {
-    class Handler
+    internal class Handler
     {
         private readonly List<ICommand> Commands;
 

@@ -1,13 +1,10 @@
 ﻿using ConsoleTables;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
 
 namespace StressCLI.src.TestCore.ResultSetter
 {
-    class ConsoleWriter : AbstractResultSetter
+    internal class ConsoleWriter : AbstractResultSetter
     {
         public void PrintTotalResult()
         {
@@ -23,9 +20,9 @@ namespace StressCLI.src.TestCore.ResultSetter
         public void PrintCodesResultTable()
         {
             var grouping = Result.CompletedRequests.GroupBy(x => x.ResponseCode);
-            HttpStatusCode[] codes = grouping.Select(x=>x.Key).ToArray();
-            ConsoleTable CodesResultTable = new ConsoleTable(string.Join(",", codes));
-            int[] count = grouping.Select(x => x.Count()).ToArray();
+            string[] codes = grouping.Select(x => x.Key.ToString()).ToArray();
+            ConsoleTable CodesResultTable = new ConsoleTable(codes);
+            string[] count = grouping.Select(x => x.Count().ToString()).ToArray();
             CodesResultTable.AddRow(count);
             CodesResultTable.Write();
         }

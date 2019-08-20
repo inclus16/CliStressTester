@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace StressCLI.src.Cli.Commands.Entities
+﻿namespace StressCLI.src.Cli.Commands.Entities
 {
-    enum HttpTestMethod
+    internal enum HttpTestMethod
     {
-        Get=1,
-        Post=2,
-        Put=3,
-        Delete=4
+        Get = 1,
+        Post = 2,
+        Put = 3,
+        Delete = 4
     }
 }

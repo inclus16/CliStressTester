@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Linq;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace StressCLI.src.TestCore.Parser
 {
-    class RandomSeeder
+    internal class RandomSeeder
     {
         private readonly Dictionary<RandomDataType, string> Mapping;
 
@@ -29,24 +26,24 @@ namespace StressCLI.src.TestCore.Parser
                 {RandomDataType.Number,"%NUMBER%" }
             };
             InitDictionaries();
-            
+
         }
 
         private void InitDictionaries()
         {
 
             RusNamesDictionary = File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", "russian_names.csv"));
-           EngNamesDictionary = File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", "foreign_names.csv"));
+            EngNamesDictionary = File.ReadAllLines(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data", "foreign_names.csv"));
             RusNamesDictionaryLength = RusNamesDictionary.Length;
             EngNamesDictionaryLength = EngNamesDictionary.Length;
         }
 
-      
+
 
         public string SetRandom(string data)
         {
             string dataWithRandom = data;
-            foreach(KeyValuePair<RandomDataType,string> keyValue in Mapping)
+            foreach (KeyValuePair<RandomDataType, string> keyValue in Mapping)
             {
                 if (dataWithRandom.Contains(keyValue.Value))
                 {

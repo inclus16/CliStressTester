@@ -3,11 +3,10 @@ using StressCLI.src.Cli.Commands.Entities;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 
 namespace StressCLI.src.TestCore.Parser
 {
-    class ConfigParser
+    internal class ConfigParser
     {
 
         private TestConfig TestConfig;
@@ -69,7 +68,7 @@ namespace StressCLI.src.TestCore.Parser
                     throw new ArgumentOutOfRangeException($"RequestFormat {requestFormat.ToString()} not supported");
 
             }
-            
+
         }
 
         private void BuildFromData(ref HttpRequestMessage request)
@@ -77,9 +76,9 @@ namespace StressCLI.src.TestCore.Parser
             request.Content = new FormUrlEncodedContent(GetFormData());
         }
 
-        private Dictionary<string,string> GetFormData()
+        private Dictionary<string, string> GetFormData()
         {
-           return JsonConvert.DeserializeObject<Dictionary<string, string>>(RandomSeeder.SetRandom(TestConfig.Data.ToString()));
+            return JsonConvert.DeserializeObject<Dictionary<string, string>>(RandomSeeder.SetRandom(TestConfig.Data.ToString()));
         }
 
         private void BuildBodyData(ref HttpRequestMessage request)

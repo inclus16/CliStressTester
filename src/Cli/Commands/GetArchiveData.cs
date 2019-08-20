@@ -1,16 +1,13 @@
 ﻿
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
 
 namespace StressCLI.src.Cli.Commands
 {
-    class GetArchiveData : ICommand
+    internal class GetArchiveData : ICommand
     {
         public void Cancel()
         {
-           throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void Execute()
@@ -35,17 +32,17 @@ namespace StressCLI.src.Cli.Commands
 
         public void PrepareData()
         {
-           // throw new NotImplementedException();
+            // throw new NotImplementedException();
         }
 
         public void SetData(string[] args)
         {
-         //   throw new NotImplementedException();
+            //   throw new NotImplementedException();
         }
 
         public void Validate()
         {
-          //  throw new NotImplementedException();
+            //  throw new NotImplementedException();
         }
     }
 }

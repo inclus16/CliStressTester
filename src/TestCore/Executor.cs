@@ -4,24 +4,21 @@ using StressCLI.src.TestCore.Parser;
 using StressCLI.src.TestCore.ResultSetter;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace StressCLI.src.TestCore
 {
-    class Executor
+    internal class Executor
     {
         private readonly ConfigParser ConfigParser;
 
         private readonly CancellationTokenSource CancellationTokenSource;
 
-        private BlockingCollection<RequestTask> Tasks;
+        private readonly BlockingCollection<RequestTask> Tasks;
 
-        private BlockingCollection<RequestTask> Completed;
+        private readonly BlockingCollection<RequestTask> Completed;
 
         private bool IsComplete;
 
@@ -38,7 +35,7 @@ namespace StressCLI.src.TestCore
             Tasks = new BlockingCollection<RequestTask>();
             Completed = new BlockingCollection<RequestTask>();
             Client = new HttpClient();
-            IsComplete = false;            
+            IsComplete = false;
         }
 
         public void SetConfig(TestConfig config)
@@ -54,7 +51,7 @@ namespace StressCLI.src.TestCore
         public void StartTest()
         {
             StartedAt = DateTime.Now;
-            for(int i = 0; i < ConfigParser.GetParallel(); i++)
+            for (int i = 0; i < ConfigParser.GetParallel(); i++)
             {
                 AddTask();
             }
@@ -72,7 +69,7 @@ namespace StressCLI.src.TestCore
             }
             RequestTask task = Tasks.Last(x => x.Response.IsCompletedSuccessfully);
             task.EndedAt = DateTime.Now.TimeOfDay;
-            Completed.Add(task);            
+            Completed.Add(task);
             CliNotifier.PrintInfo($"Request finished by: {task.TotalExecutionTime} with status code: {task.Response.Result.StatusCode}");
             RuningTasks--;
             if (IsStopSignal(task.Response.Result))
@@ -97,13 +94,13 @@ namespace StressCLI.src.TestCore
                     }
                     break;
                 case StopSignal.BadRequest:
-                    if(response.StatusCode== System.Net.HttpStatusCode.BadRequest)
+                    if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     {
                         return true;
                     }
                     break;
                 case StopSignal.InternalServerError:
-                    if(response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+                    if (response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
                     {
                         return true;
                     }
@@ -118,7 +115,7 @@ namespace StressCLI.src.TestCore
             return false;
         }
 
-        public void StopExecution(bool manual=false)
+        public void StopExecution(bool manual = false)
         {
             CancellationTokenSource.Cancel();
             while (Tasks.Count > 0)
@@ -135,10 +132,10 @@ namespace StressCLI.src.TestCore
             writer.SetCompletedTasks(Completed)
                 .SetStartedAtTime(StartedAt)
                 .SetEndedAtTime(DateTime.Now)
-                .SetStopReason(manual?StopSignal.Manual:ConfigParser.GetStopSignal());
+                .SetStopReason(manual ? StopSignal.Manual : ConfigParser.GetStopSignal());
             writer.PrintTotalResult();
             writer.PrintCodesResultTable();
-                
+
         }
 
         private void AddTask()

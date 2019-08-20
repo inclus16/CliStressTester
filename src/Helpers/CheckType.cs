@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace StressCLI.src.Helpers
+﻿namespace StressCLI.src.Helpers
 {
-    class CheckType
+    internal class CheckType
     {
         public static bool IsInt(object data)
         {

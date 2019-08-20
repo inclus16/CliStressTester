@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
 
 namespace StressCLI.src.Cli.Commands.Entities
 {
-    struct TestConfig
+    internal struct TestConfig
     {
         public TimeSpan TimeOut { get; set; }
 

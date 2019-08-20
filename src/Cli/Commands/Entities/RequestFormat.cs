@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace StressCLI.src.Cli.Commands.Entities
+﻿namespace StressCLI.src.Cli.Commands.Entities
 {
-    enum RequestFormat
+    internal enum RequestFormat
     {
-        FormData=1,
-        Body=2
+        FormData = 1,
+        Body = 2
     }
 }

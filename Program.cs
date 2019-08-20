@@ -4,24 +4,24 @@ using System.Threading.Tasks;
 
 namespace StressCLI
 {
-    class Program
+    internal class Program
     {
-        private  const char STOP = 'q';
+        private const char STOP = 'q';
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Handler handler = new Handler();
-            Task.Run(()=>handler.Handle(args));
+            Task.Run(() => handler.Handle(args));
             while (true)
             {
                 ConsoleKeyInfo consoleKey = Console.ReadKey();
                 if (consoleKey.KeyChar == Program.STOP)
                 {
                     handler.Cancel();
-                    return;
+                    Environment.Exit(0);
                 }
             }
-            
+
 
         }
     }

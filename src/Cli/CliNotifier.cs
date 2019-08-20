@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace StressCLI.src.Cli
 {
-    class CliNotifier
+    internal class CliNotifier
     {
         public static void PrintError(string message)
         {

@@ -2,21 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace StressCLI.src.TestCore.ResultSetter
 {
-    abstract class AbstractResultSetter
+    internal abstract class AbstractResultSetter
     {
         public AbstractResultSetter()
         {
-            Result = new ResultStruct(); 
+            Result = new ResultStruct();
         }
 
         protected ResultStruct Result;
         public AbstractResultSetter SetCompletedTasks(IEnumerable<RequestTask> tasks)
         {
-            Result.CompletedRequests = tasks.Select(x => new CompletedRequest(x)).ToArray();          
+            Result.CompletedRequests = tasks.Select(x => new CompletedRequest(x)).ToArray();
             return this;
         }
 
