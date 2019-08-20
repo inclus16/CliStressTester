@@ -12,7 +12,8 @@ namespace StressCLI.src.Cli
         private ICommand ChosenCommand;
         public Handler()
         {
-            Commands= AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
+
+            Commands = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
                 .Where(x => typeof(ICommand).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
                 .Select(x => Activator.CreateInstance(x) as ICommand).ToList();
         }

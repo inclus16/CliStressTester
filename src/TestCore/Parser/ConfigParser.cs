@@ -5,12 +5,19 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 
-namespace StressCLI.src.TestCore
+namespace StressCLI.src.TestCore.Parser
 {
     class ConfigParser
     {
 
         private TestConfig TestConfig;
+
+        private readonly RandomSeeder RandomSeeder;
+
+        public ConfigParser()
+        {
+            RandomSeeder = new RandomSeeder();
+        }
         public void SetConfig(TestConfig config)
         {
             TestConfig = config;
@@ -32,7 +39,7 @@ namespace StressCLI.src.TestCore
             return TestConfig.Method == HttpTestMethod.Delete || TestConfig.Method == HttpTestMethod.Get;
         }
 
-        public int GetParralel()
+        public int GetParallel()
         {
             return TestConfig.Parallel;
         }
@@ -59,7 +66,7 @@ namespace StressCLI.src.TestCore
                     BuildFromData(ref request);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException($"RequestFormat {requestFormat.ToString()} not availdable");
+                    throw new ArgumentOutOfRangeException($"RequestFormat {requestFormat.ToString()} not supported");
 
             }
             
@@ -72,18 +79,12 @@ namespace StressCLI.src.TestCore
 
         private Dictionary<string,string> GetFormData()
         {
-            try
-            {
-                return JsonConvert.DeserializeObject<Dictionary<string, string>>(TestConfig.Data.ToString());
-            }catch(Exception ex)
-            {
-                throw ex;
-            }
+           return JsonConvert.DeserializeObject<Dictionary<string, string>>(RandomSeeder.SetRandom(TestConfig.Data.ToString()));
         }
 
         private void BuildBodyData(ref HttpRequestMessage request)
         {
-            request.Content = new StringContent(TestConfig.Data.ToString());
+            request.Content = new StringContent(RandomSeeder.SetRandom(TestConfig.Data.ToString()));
             request.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
         }
 

@@ -21,6 +21,7 @@ namespace StressCLI.src.Cli.Commands
         public void Execute()
         {
             Executor.SetConfig(TestConfig);
+            Executor.Configurate();
             Executor.StartTest();
         }
 

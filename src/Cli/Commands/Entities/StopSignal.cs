@@ -9,6 +9,7 @@ namespace StressCLI.src.Cli.Commands.Entities
         BadRequest=1,
         InternalServerError=2,
         BadGateway=3,
-        Manual=4
+        Manual=4,
+        TooManyRequests=5
     }
 }

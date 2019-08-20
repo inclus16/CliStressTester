@@ -1,5 +1,6 @@
 ﻿using StressCLI.src.Cli;
 using StressCLI.src.Cli.Commands.Entities;
+using StressCLI.src.TestCore.Parser;
 using StressCLI.src.TestCore.ResultSetter;
 using System;
 using System.Collections.Concurrent;
@@ -37,7 +38,7 @@ namespace StressCLI.src.TestCore
             Tasks = new BlockingCollection<RequestTask>();
             Completed = new BlockingCollection<RequestTask>();
             Client = new HttpClient();
-            IsComplete = false;
+            IsComplete = false;            
         }
 
         public void SetConfig(TestConfig config)
@@ -53,7 +54,7 @@ namespace StressCLI.src.TestCore
         public void StartTest()
         {
             StartedAt = DateTime.Now;
-            for(int i = 0; i < ConfigParser.GetParralel(); i++)
+            for(int i = 0; i < ConfigParser.GetParallel(); i++)
             {
                 AddTask();
             }
@@ -65,20 +66,20 @@ namespace StressCLI.src.TestCore
 
         private void OnRequestComplete()
         {
-            RequestTask task = Tasks.Last(x => x.Response.IsCompletedSuccessfully);
-            task.EndedAt = DateTime.Now.TimeOfDay;
-            Completed.Add(task);            
-            CliNotifier.PrintInfo($"Request finished by: {task.TotalExecutionTime} with status code: {task.Response.Result.StatusCode}");           
             if (CancellationTokenSource.IsCancellationRequested)
             {
                 return;
             }
+            RequestTask task = Tasks.Last(x => x.Response.IsCompletedSuccessfully);
+            task.EndedAt = DateTime.Now.TimeOfDay;
+            Completed.Add(task);            
+            CliNotifier.PrintInfo($"Request finished by: {task.TotalExecutionTime} with status code: {task.Response.Result.StatusCode}");
             RuningTasks--;
             if (IsStopSignal(task.Response.Result))
             {
                 StopExecution();
             }
-            if (RuningTasks < ConfigParser.GetParralel())
+            if (RuningTasks < ConfigParser.GetParallel())
             {
                 AddTask();
             }
@@ -107,6 +108,12 @@ namespace StressCLI.src.TestCore
                         return true;
                     }
                     break;
+                case StopSignal.TooManyRequests:
+                    if (response.StatusCode == System.Net.HttpStatusCode.TooManyRequests)
+                    {
+                        return true;
+                    }
+                    break;
             }
             return false;
         }
@@ -114,8 +121,12 @@ namespace StressCLI.src.TestCore
         public void StopExecution(bool manual=false)
         {
             CancellationTokenSource.Cancel();
+            while (Tasks.Count > 0)
+            {
+                Tasks.Take();
+            }
             WriteResults(manual);
-            IsComplete = false;
+            IsComplete = true;
         }
 
         private void WriteResults(bool manual)

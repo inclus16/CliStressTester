@@ -1,6 +1,4 @@
 ﻿
-using IronPython.Hosting;
-using Microsoft.Scripting.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,14 +10,12 @@ namespace StressCLI.src.Cli.Commands
     {
         public void Cancel()
         {
-           // throw new NotImplementedException();
+           throw new NotImplementedException();
         }
 
         public void Execute()
         {
-            ScriptEngine engine = Python.CreateEngine();
-            ScriptScope scope = engine.CreateScope();
-            engine.ExecuteFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Charts.py"), scope);
+            throw new NotImplementedException();
         }
 
         public string GetName()
