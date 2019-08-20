@@ -67,15 +67,22 @@ namespace StressCLI.src.TestCore
             {
                 return;
             }
-            RequestTask task = Tasks.Last(x => x.Response.IsCompletedSuccessfully);
-            task.EndedAt = DateTime.Now.TimeOfDay;
-            Completed.Add(task);
-            CliNotifier.PrintInfo($"Request finished by: {task.TotalExecutionTime} with status code: {task.Response.Result.StatusCode}");
-            RuningTasks--;
-            if (IsStopSignal(task.Response.Result))
+            RequestTask task = Tasks.Last(x => x.Response.IsCompleted);            
+            if (task.Response.IsCanceled)
             {
-                StopExecution();
+                CliNotifier.PrinWarning("Cannot load response");
             }
+            else
+            {
+                CliNotifier.PrintInfo($"Request finished by: {task.TotalExecutionTime} with status code: { task.Response.Result.StatusCode}");
+                task.EndedAt = DateTime.Now.TimeOfDay;
+                Completed.Add(task);
+                if (IsStopSignal(task.Response.Result))
+                {
+                    StopExecution();
+                }
+            }
+            RuningTasks--;           
             if (RuningTasks < ConfigParser.GetParallel())
             {
                 AddTask();
@@ -118,6 +125,10 @@ namespace StressCLI.src.TestCore
         public void StopExecution(bool manual = false)
         {
             CancellationTokenSource.Cancel();
+            if (Completed.Count==0)
+            {
+                return;
+            }
             while (Tasks.Count > 0)
             {
                 Tasks.Take();

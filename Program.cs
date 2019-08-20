@@ -11,8 +11,8 @@ namespace StressCLI
         private static void Main(string[] args)
         {
             Handler handler = new Handler();
-            Task.Run(() => handler.Handle(args));
-            while (true)
+            Task handleTask= Task.Run(() => handler.Handle(args));
+            while (!handleTask.IsCompleted)
             {
                 ConsoleKeyInfo consoleKey = Console.ReadKey();
                 if (consoleKey.KeyChar == Program.STOP)
