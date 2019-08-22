@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "StressCLI": {
-      "commandName": "Project",
-      "commandLineArgs": "Run ww 2222"
-    }
-  }
-}

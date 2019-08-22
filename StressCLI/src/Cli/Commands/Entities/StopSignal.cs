@@ -1,6 +1,6 @@
 ﻿namespace StressCLI.src.Cli.Commands.Entities
 {
-    internal enum StopSignal
+    public enum StopSignal
     {
         BadRequest = 1,
         InternalServerError = 2,

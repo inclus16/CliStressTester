@@ -1,6 +1,6 @@
 ﻿namespace StressCLI.src.Cli.Commands.Entities
 {
-    internal enum RequestFormat
+    public enum RequestFormat
     {
         FormData = 1,
         Body = 2

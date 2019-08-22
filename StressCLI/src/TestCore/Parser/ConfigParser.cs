@@ -6,7 +6,7 @@ using System.Net.Http;
 
 namespace StressCLI.src.TestCore.Parser
 {
-    internal class ConfigParser
+    public class ConfigParser
     {
 
         private TestConfig TestConfig;
@@ -37,10 +37,6 @@ namespace StressCLI.src.TestCore.Parser
             return TestConfig.ResultWriter;
         }
 
-        public bool HaveBody()
-        {
-            return TestConfig.Method == HttpTestMethod.Delete || TestConfig.Method == HttpTestMethod.Get;
-        }
 
         public int GetParallel()
         {

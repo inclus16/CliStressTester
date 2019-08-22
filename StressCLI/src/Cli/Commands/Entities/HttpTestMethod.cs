@@ -1,6 +1,6 @@
 ﻿namespace StressCLI.src.Cli.Commands.Entities
 {
-    internal enum HttpTestMethod
+    public enum HttpTestMethod
     {
         Get = 1,
         Post = 2,
