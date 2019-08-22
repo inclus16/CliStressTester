@@ -14,9 +14,9 @@ namespace StressCLI.src.Cli.Commands.Entities
 
         public StopSignal StopSignal { get; set; }
 
-        public object Data { get; set; }
+        public string Data { get; set; }
 
-        public object Headers { get; set; }
+        public string Headers { get; set; }
 
         public int Parallel { get; set; }
 

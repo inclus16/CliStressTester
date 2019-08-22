@@ -54,6 +54,7 @@ namespace StressCLI.src.TestCore.Parser
             {
                 SetRequestData(ref request);
             }
+            SetHeaders(ref request);
             return request;
         }
 
@@ -80,14 +81,23 @@ namespace StressCLI.src.TestCore.Parser
             request.Content = new FormUrlEncodedContent(GetFormData());
         }
 
+        private void SetHeaders(ref HttpRequestMessage request)
+        {
+            Dictionary<string, string> headers = JsonConvert.DeserializeObject<Dictionary<string, string>>(TestConfig.Headers);
+            foreach(KeyValuePair<string,string> keyValue in headers)
+            {
+                request.Headers.Add(keyValue.Key, keyValue.Value);
+            }
+        }
+
         private Dictionary<string, string> GetFormData()
         {
-            return JsonConvert.DeserializeObject<Dictionary<string, string>>(RandomSeeder.SetRandom(TestConfig.Data.ToString()));
+            return JsonConvert.DeserializeObject<Dictionary<string, string>>(RandomSeeder.SetRandom(TestConfig.Data));
         }
 
         private void BuildBodyData(ref HttpRequestMessage request)
         {
-            request.Content = new StringContent(RandomSeeder.SetRandom(TestConfig.Data.ToString()));
+            request.Content = new StringContent(RandomSeeder.SetRandom(TestConfig.Data));
             request.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
         }
 

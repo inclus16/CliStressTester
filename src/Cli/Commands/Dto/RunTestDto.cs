@@ -48,8 +48,8 @@ namespace StressCLI.src.Cli.Commands.Dto
         public TestConfig GetTestConfig()
         {
             TestConfig config = new TestConfig();
-            config.Data = string.IsNullOrWhiteSpace(RequestPath)?null:JsonConvert.DeserializeObject(File.ReadAllText(RequestPath));
-            config.Headers = string.IsNullOrWhiteSpace(RequestHeadersPath)?null : JsonConvert.DeserializeObject(File.ReadAllText(RequestHeadersPath));
+            config.Data = string.IsNullOrWhiteSpace(RequestPath)?null:File.ReadAllText(RequestPath);
+            config.Headers = string.IsNullOrWhiteSpace(RequestHeadersPath)?null :File.ReadAllText(RequestHeadersPath);
             config.Method = Method;
             config.RequestFormat = RequestFormat;
             config.StopSignal = StopSignal;
