@@ -2,7 +2,7 @@
 
 namespace StressCLI.src.Cli.Commands.Entities
 {
-    internal struct TestConfig
+    struct TestConfig
     {
         public TimeSpan TimeOut { get; set; }
 

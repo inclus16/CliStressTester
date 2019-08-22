@@ -2,7 +2,7 @@
   "profiles": {
     "StressCLI": {
       "commandName": "Project",
-      "commandLineArgs": "run-test C:\\\\projects\\\\Console\\\\req.json 1 2 http://192.168.0.100/api/orders 5 5 30"
+      "commandLineArgs": "Run ww 2222"
     }
   }
 }
