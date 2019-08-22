@@ -1,4 +1,5 @@
 ﻿using CommandDotNet;
+using CommandDotNet.Attributes;
 using Newtonsoft.Json;
 using StressCLI.src.Cli.Commands.Entities;
 using System;
@@ -11,10 +12,17 @@ namespace StressCLI.src.Cli.Commands.Dto
 {
     class RunTestDto : IArgumentModel
     {
-        [Required]
+
+        [Option(Description = "Request body in json", ShortName = "rp")]
         [Validation.FileExists]
         [FileExtensions(Extensions = ".json")]
         public string RequestPath { get; set; }
+
+
+        [Option(Description = "Request headers in json",ShortName = "rhp")]
+        [Validation.FileExists]
+        [FileExtensions(Extensions = ".json")]
+        public string RequestHeadersPath { get; set; }
 
         [Required]
         [EnumDataType(typeof(HttpTestMethod))]
@@ -32,14 +40,21 @@ namespace StressCLI.src.Cli.Commands.Dto
         [Range(1,50)]
         public  ushort Parallel { get; set; }
 
+        [Option(Description = "Where write results", ShortName = "rw")]
+        [Required]
+        [EnumDataType(typeof(ResultWriter))]
+        public ResultWriter ResultWriter { get; set; }
+
         public TestConfig GetTestConfig()
         {
             TestConfig config = new TestConfig();
-            config.Data = JsonConvert.DeserializeObject(File.ReadAllText(RequestPath));
+            config.Data = string.IsNullOrWhiteSpace(RequestPath)?null:JsonConvert.DeserializeObject(File.ReadAllText(RequestPath));
+            config.Headers = string.IsNullOrWhiteSpace(RequestHeadersPath)?null : JsonConvert.DeserializeObject(File.ReadAllText(RequestHeadersPath));
             config.Method = Method;
             config.RequestFormat = RequestFormat;
             config.StopSignal = StopSignal;
             config.TimeOut = TimeSpan.FromSeconds(60);//@TODO
+            config.ResultWriter = ResultWriter;
             config.Parallel = Parallel;
             return config;
         }

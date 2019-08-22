@@ -11,7 +11,7 @@ namespace StressCLI.src.Cli.Commands.Validation
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             string path = value.ToString();
-            if (!File.Exists(path))
+            if (!string.IsNullOrWhiteSpace(path)&&!File.Exists(path))
             {
                 return new ValidationResult($"File not found at path :{path}");
             }

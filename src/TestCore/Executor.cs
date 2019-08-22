@@ -137,16 +137,16 @@ namespace StressCLI.src.TestCore
             IsComplete = true;
         }
 
+        
+
         private void WriteResults(bool manual)
         {
-            ConsoleWriter writer = new ConsoleWriter();
+            AbstractResultSetter writer = WritersFactory.GetWriter(ConfigParser.GetResultWriterType());
             writer.SetCompletedTasks(Completed)
                 .SetStartedAtTime(StartedAt)
                 .SetEndedAtTime(DateTime.Now)
                 .SetStopReason(manual ? StopSignal.Manual : ConfigParser.GetStopSignal());
-            writer.PrintTotalResult();
-            writer.PrintCodesResultTable();
-
+            writer.Write();
         }
 
         private void AddTask()

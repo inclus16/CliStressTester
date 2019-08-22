@@ -16,7 +16,11 @@ namespace StressCLI.src.Cli.Commands.Entities
 
         public object Data { get; set; }
 
+        public object Headers { get; set; }
+
         public int Parallel { get; set; }
+
+        public ResultWriter ResultWriter { get; set; }
 
     }
 }

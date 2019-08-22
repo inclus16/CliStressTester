@@ -21,13 +21,14 @@ namespace StressCLI.src.TestCore.ResultSetter
         }
 
 
-        public void Write()
+        public override void Write()
         {
             string resultsFilePath = Path.Combine(ArchivePath, Result.StartedAt.ToString().Replace(' ', '_').Replace(':', '-') + ".json");
             File.WriteAllText(resultsFilePath, JsonConvert.SerializeObject(Result));
+            WriteResponsesCsv();
         }
 
-        public void WriteResponsesCsv()
+        private void WriteResponsesCsv()
         {
             string resultsFilePath = Path.Combine(ArchivePath, Result.StartedAt.ToString().Replace(' ', '_').Replace(':', '-') + ".csv");
             int responsesCount = Result.CompletedRequests.Length;

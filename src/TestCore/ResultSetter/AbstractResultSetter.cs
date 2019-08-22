@@ -37,5 +37,7 @@ namespace StressCLI.src.TestCore.ResultSetter
             Result.StopReason = stopSignal.ToString();
             return this;
         }
+
+        public abstract void Write();
     }
 }

@@ -6,7 +6,7 @@ namespace StressCLI.src.TestCore.ResultSetter
 {
     internal class ConsoleWriter : AbstractResultSetter
     {
-        public void PrintTotalResult()
+        private void PrintTotalResult()
         {
             ConsoleTable TotalResultTable = new ConsoleTable("completed_by", "stopped_by", "min_req_time", "max_req_time", "total_requests");
             TotalResultTable.AddRow(Result.EndedAt - Result.StartedAt,
@@ -17,7 +17,7 @@ namespace StressCLI.src.TestCore.ResultSetter
             TotalResultTable.Write();
         }
 
-        public void PrintCodesResultTable()
+        private void PrintCodesResultTable()
         {
             var grouping = Result.CompletedRequests.GroupBy(x => x.ResponseCode);
             string[] codes = grouping.Select(x => x.Key.ToString()).ToArray();
@@ -25,6 +25,12 @@ namespace StressCLI.src.TestCore.ResultSetter
             string[] count = grouping.Select(x => x.Count().ToString()).ToArray();
             CodesResultTable.AddRow(count);
             CodesResultTable.Write();
+        }
+
+        public override void Write()
+        {
+            PrintTotalResult();
+            PrintCodesResultTable();
         }
 
     }

@@ -32,6 +32,10 @@ namespace StressCLI.src.TestCore.Parser
         {
             return TestConfig.Url;
         }
+        public ResultWriter GetResultWriterType()
+        {
+            return TestConfig.ResultWriter;
+        }
 
         public bool HaveBody()
         {
