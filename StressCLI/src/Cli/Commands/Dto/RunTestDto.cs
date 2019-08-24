@@ -1,7 +1,7 @@
 ﻿using CommandDotNet;
 using CommandDotNet.Attributes;
 using Newtonsoft.Json;
-using StressCLI.src.Cli.Commands.Entities;
+using StressCLI.src.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -23,6 +23,10 @@ namespace StressCLI.src.Cli.Commands.Dto
         [Validation.FileExists]
         [FileExtensions(Extensions = ".json")]
         public string RequestHeadersPath { get; set; }
+
+        [Required]
+        [Url]
+        public Uri Uri { get; set; }
 
         [Required]
         [EnumDataType(typeof(HttpTestMethod))]
@@ -52,6 +56,7 @@ namespace StressCLI.src.Cli.Commands.Dto
             config.Headers = string.IsNullOrWhiteSpace(RequestHeadersPath)?null :File.ReadAllText(RequestHeadersPath);
             config.Method = Method;
             config.RequestFormat = RequestFormat;
+            config.Url = Uri;
             config.StopSignal = StopSignal;
             config.TimeOut = TimeSpan.FromSeconds(60);//@TODO
             config.ResultWriter = ResultWriter;

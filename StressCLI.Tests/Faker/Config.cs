@@ -1,14 +1,14 @@
 ﻿using Newtonsoft.Json;
-using StressCLI.src.Cli.Commands.Entities;
+using StressCLI.src.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace StressCLI.Tests.Factory
+namespace StressCLI.Tests.Faker
 {
     class Config
     {
-        public readonly TestConfig TestConfig;
+        private readonly TestConfig TestConfig;
         public Config()
         {
             TestConfig = new TestConfig()
@@ -20,7 +20,7 @@ namespace StressCLI.Tests.Factory
                     { "X-Some-Header","4:20" }
                 }),
                 Method = HttpTestMethod.Post,
-                Parallel=20,
+                Parallel=5,
                 RequestFormat = RequestFormat.Body,
                 ResultWriter = ResultWriter.Console,
                 StopSignal= StopSignal.InternalServerError,
@@ -28,6 +28,12 @@ namespace StressCLI.Tests.Factory
                 Url = new Uri("https://localhost")
             };
         }
+
+        public TestConfig GetTestConfig()
+        {
+            return TestConfig;
+        }
+
 
     }
 }

@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace StressCLI.src.TestCore
 {
-    internal class RequestTask
+    public class RequestTask
     {
         public TimeSpan StartedAt { get; set; }
 

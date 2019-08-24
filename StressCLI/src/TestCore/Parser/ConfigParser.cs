@@ -1,21 +1,22 @@
 ﻿using Newtonsoft.Json;
-using StressCLI.src.Cli.Commands.Entities;
+using StressCLI.src.Entities;
+using StressCLI.src.TestCore.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 
 namespace StressCLI.src.TestCore.Parser
 {
-    public class ConfigParser
+    public class ConfigParser:IConfigParser
     {
 
         private TestConfig TestConfig;
 
-        private readonly RandomSeeder RandomSeeder;
+        private readonly IRandomSeeder RandomSeeder;
 
-        public ConfigParser()
+        public ConfigParser(IRandomSeeder randomSeeder)
         {
-            RandomSeeder = new RandomSeeder();
+            RandomSeeder = randomSeeder;
         }
         public void SetConfig(TestConfig config)
         {
@@ -46,11 +47,14 @@ namespace StressCLI.src.TestCore.Parser
         public HttpRequestMessage GetRequest()
         {
             HttpRequestMessage request = new HttpRequestMessage(GetMethod(), TestConfig.Url);
-            if (TestConfig.Method == HttpTestMethod.Post || TestConfig.Method == HttpTestMethod.Put)
+            if ((TestConfig.Method == HttpTestMethod.Post || TestConfig.Method == HttpTestMethod.Put) && TestConfig.Data!=null)
             {
                 SetRequestData(ref request);
             }
-            SetHeaders(ref request);
+            if (TestConfig.Headers != null)
+            {
+                SetHeaders(ref request);
+            }
             return request;
         }
 
@@ -120,4 +124,6 @@ namespace StressCLI.src.TestCore.Parser
             return TestConfig.StopSignal;
         }
     }
+
+    
 }

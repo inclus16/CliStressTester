@@ -2,7 +2,7 @@
 
 namespace StressCLI.src.TestCore.ResultSetter
 {
-    internal struct ResultStruct
+    public struct ResultStruct
     {
         public DateTime StartedAt { get; set; }
 

@@ -1,7 +1,9 @@
 ﻿using CommandDotNet.Attributes;
 using StressCLI.src.Cli.Commands.Dto;
-using StressCLI.src.Cli.Commands.Entities;
+using StressCLI.src.Entities;
 using StressCLI.src.TestCore;
+using StressCLI.src.TestCore.Interfaces;
+using StressCLI.src.TestCore.ResultSetter;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,6 +16,10 @@ namespace StressCLI.src.Cli.Commands
     {
         private const char STOP = 'q';
 
+        [InjectProperty]
+        public IExecutor Executor { get; set; }
+
+
         [ApplicationMetadata(Description = "Run new stress session")]
         public void Run(RunTestDto dto)
         {
@@ -23,22 +29,30 @@ namespace StressCLI.src.Cli.Commands
                 PrintValidationErrors();
                 return;
             }
-            Executor exec = new Executor();
-            exec.SetConfig(dto.GetTestConfig());
-            exec.Configurate();
+
+            Executor.SetConfig(dto.GetTestConfig());
+            Executor.Configurate();
             Task session= Task.Run(() =>
             {
-                exec.StartTest();
+                Executor.StartTest();
             });
+            bool manualyStopped = false;
             while (!session.IsCompleted)
             {
                 ConsoleKeyInfo key = Console.ReadKey();
                 if (key.KeyChar == STOP)
                 {
-                    exec.StopExecution(true);
-                    return;
+                    Executor.StopExecution();
+                    manualyStopped = true;
+                    break;
                 }
             }
+            AbstractWriter writer = WritersFactory.GetWriter(dto.ResultWriter);
+            writer.SetCompletedTasks(Executor.GetResult())
+                .SetStartedAtTime(Executor.GetStartedAt())
+                .SetEndedAtTime(DateTime.Now)
+                .SetStopReason(manualyStopped ? StopSignal.Manual : dto.StopSignal);
+            writer.Write();
         }
     }
 }

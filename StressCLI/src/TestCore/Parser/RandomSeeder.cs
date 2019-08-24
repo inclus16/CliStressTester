@@ -1,10 +1,11 @@
-﻿using System;
+﻿using StressCLI.src.TestCore.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
 namespace StressCLI.src.TestCore.Parser
 {
-    internal class RandomSeeder
+    internal class RandomSeeder:IRandomSeeder
     {
         private readonly Dictionary<RandomDataType, string> Mapping;
 

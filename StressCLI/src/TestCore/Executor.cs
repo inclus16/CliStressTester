@@ -1,18 +1,18 @@
 ﻿using StressCLI.src.Cli;
-using StressCLI.src.Cli.Commands.Entities;
-using StressCLI.src.TestCore.Parser;
-using StressCLI.src.TestCore.ResultSetter;
+using StressCLI.src.Entities;
+using StressCLI.src.TestCore.Interfaces;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
 
 namespace StressCLI.src.TestCore
 {
-    internal class Executor
+    internal class Executor:IExecutor
     {
-        private readonly ConfigParser ConfigParser;
+        private readonly IConfigParser ConfigParser;
 
         private readonly CancellationTokenSource CancellationTokenSource;
 
@@ -28,9 +28,9 @@ namespace StressCLI.src.TestCore
 
         private DateTime StartedAt;
 
-        public Executor()
+        public Executor(IConfigParser configParser)
         {
-            ConfigParser = new ConfigParser();
+            ConfigParser = configParser;
             CancellationTokenSource = new CancellationTokenSource();
             Tasks = new BlockingCollection<RequestTask>();
             Completed = new BlockingCollection<RequestTask>();
@@ -71,6 +71,9 @@ namespace StressCLI.src.TestCore
             if (task.Response.IsCanceled)
             {
                 CliNotifier.PrinWarning("Cannot load response");
+            }else if (task.Response.IsFaulted)
+            {
+                CliNotifier.PrinWarning("Server cancel connection");
             }
             else
             {
@@ -121,8 +124,12 @@ namespace StressCLI.src.TestCore
             }
             return false;
         }
+        public DateTime GetStartedAt()
+        {
+            return StartedAt;
+        }
 
-        public void StopExecution(bool manual = false)
+        public void StopExecution()
         {
             CancellationTokenSource.Cancel();
             if (Completed.Count==0)
@@ -133,22 +140,16 @@ namespace StressCLI.src.TestCore
             {
                 Tasks.Take();
             }
-            WriteResults(manual);
             IsComplete = true;
         }
 
-        
-
-        private void WriteResults(bool manual)
+        public List<RequestTask> GetResult()
         {
-            AbstractResultSetter writer = WritersFactory.GetWriter(ConfigParser.GetResultWriterType());
-            writer.SetCompletedTasks(Completed)
-                .SetStartedAtTime(StartedAt)
-                .SetEndedAtTime(DateTime.Now)
-                .SetStopReason(manual ? StopSignal.Manual : ConfigParser.GetStopSignal());
-            writer.Write();
+            return Completed.ToList();
         }
 
+
+      
         private void AddTask()
         {
             RequestTask requestTask = new RequestTask();

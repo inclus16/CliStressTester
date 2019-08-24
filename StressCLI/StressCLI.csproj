@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <PackageReference Include="CommandDotNet" Version="2.8.1" />
+    <PackageReference Include="CommandDotNet.IoC.MicrosoftDependencyInjection" Version="1.1.0" />
     <PackageReference Include="ConsoleTables" Version="2.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>

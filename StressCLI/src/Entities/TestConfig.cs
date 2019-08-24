@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StressCLI.src.Cli.Commands.Entities
+namespace StressCLI.src.Entities
 {
     public struct TestConfig
     {

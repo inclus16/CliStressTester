@@ -4,7 +4,7 @@ using System.Net;
 
 namespace StressCLI.src.TestCore.ResultSetter
 {
-    internal class ConsoleWriter : AbstractResultSetter
+    internal class ConsoleWriter : AbstractWriter
     {
         private void PrintTotalResult()
         {

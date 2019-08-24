@@ -1,14 +1,15 @@
 ﻿using Newtonsoft.Json;
+using StressCLI.src.Helpers;
 using System;
 using System.IO;
 using System.Text;
 
 namespace StressCLI.src.TestCore.ResultSetter
 {
-    internal class FileWriter : AbstractResultSetter
+    internal class FileWriter : AbstractWriter
     {
 
-        private readonly string ArchivePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Archive");
+        private readonly string ArchivePath = PathResolver.GetAbsolutePath();
 
         public FileWriter()
         {
@@ -23,14 +24,14 @@ namespace StressCLI.src.TestCore.ResultSetter
 
         public override void Write()
         {
-            string resultsFilePath = Path.Combine(ArchivePath, Result.StartedAt.ToString().Replace(' ', '_').Replace(':', '-') + ".json");
+            string resultsFilePath = Path.Combine(ArchivePath, PathResolver.GetFileNameByDate(Result.StartedAt) + ".json");
             File.WriteAllText(resultsFilePath, JsonConvert.SerializeObject(Result));
             WriteResponsesCsv();
         }
 
         private void WriteResponsesCsv()
         {
-            string resultsFilePath = Path.Combine(ArchivePath, Result.StartedAt.ToString().Replace(' ', '_').Replace(':', '-') + ".csv");
+            string resultsFilePath = Path.Combine(ArchivePath, PathResolver.GetFileNameByDate(Result.StartedAt) + ".csv");
             int responsesCount = Result.CompletedRequests.Length;
             using (FileStream fs = File.OpenWrite(resultsFilePath))
             {
@@ -39,10 +40,6 @@ namespace StressCLI.src.TestCore.ResultSetter
                 for (int i = 0; i < responsesCount; i++)
                 {
                     TimeSpan completedBy = Result.CompletedRequests[i].CompletedBy;
-                    if (completedBy < TimeSpan.Zero)
-                    {
-                        continue;
-                    }
                     byte[] buffer = Encoding.UTF8.GetBytes($"{Result.CompletedRequests[i].StartedAt};{completedBy}\n");
                     fs.Write(buffer, 0, buffer.Length);
                 }

@@ -1,38 +1,39 @@
-﻿using StressCLI.src.Cli.Commands.Entities;
+﻿
+using StressCLI.src.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace StressCLI.src.TestCore.ResultSetter
 {
-    internal abstract class AbstractResultSetter
+    public abstract class AbstractWriter
     {
-        public AbstractResultSetter()
+        public AbstractWriter()
         {
             Result = new ResultStruct();
         }
 
         protected ResultStruct Result;
-        public AbstractResultSetter SetCompletedTasks(IEnumerable<RequestTask> tasks)
+        public AbstractWriter SetCompletedTasks(IEnumerable<RequestTask> tasks)
         {
             Result.CompletedRequests = tasks.Select(x => new CompletedRequest(x)).ToArray();
             return this;
         }
 
 
-        public AbstractResultSetter SetStartedAtTime(DateTime startedAt)
+        public AbstractWriter SetStartedAtTime(DateTime startedAt)
         {
             Result.StartedAt = startedAt;
             return this;
         }
 
-        public AbstractResultSetter SetEndedAtTime(DateTime endedAt)
+        public AbstractWriter SetEndedAtTime(DateTime endedAt)
         {
             Result.EndedAt = endedAt;
             return this;
         }
 
-        public AbstractResultSetter SetStopReason(StopSignal stopSignal)
+        public AbstractWriter SetStopReason(StopSignal stopSignal)
         {
             Result.StopReason = stopSignal.ToString();
             return this;

@@ -1,13 +1,14 @@
-﻿using StressCLI.src.Cli.Commands.Entities;
+﻿
+using StressCLI.src.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace StressCLI.src.TestCore.ResultSetter
 {
-    class WritersFactory
+    public class WritersFactory
     {
-        public static AbstractResultSetter GetWriter(ResultWriter writer)
+        public static AbstractWriter GetWriter(ResultWriter writer)
         {
             switch(writer)
             {

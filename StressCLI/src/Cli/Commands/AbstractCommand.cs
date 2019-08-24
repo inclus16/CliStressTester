@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
-namespace StressCLI.src.Cli.Commands.Entities
+namespace StressCLI.src.Cli.Commands
 {
     abstract class AbstractCommand
     {

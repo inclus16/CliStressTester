@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace StressCLI.src.Cli.Commands.Entities
+namespace StressCLI.src.Entities
 {
     public enum ResultWriter
     {
