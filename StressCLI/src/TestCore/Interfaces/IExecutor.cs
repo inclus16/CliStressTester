@@ -3,7 +3,7 @@ using StressCLI.src.Entities;
 using System;
 using System.Collections.Generic;
 
-namespace StressCLI.src.TestCore.Interfaces
+namespace StressCLI.src.Entities.Interfaces
 {
     public interface IExecutor
     {

@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace StressCLI.src.TestCore
+namespace StressCLI.src.Entities
 {
     public class RequestTask
     {

@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace StressCLI.src.TestCore.ResultSetter
+namespace StressCLI.src.Entities.ResultSetter
 {
     internal class FileWriter : AbstractWriter
     {

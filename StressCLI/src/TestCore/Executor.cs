@@ -1,6 +1,6 @@
 ﻿using StressCLI.src.Cli;
 using StressCLI.src.Entities;
-using StressCLI.src.TestCore.Interfaces;
+using StressCLI.src.Entities.Interfaces;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 
-namespace StressCLI.src.TestCore
+namespace StressCLI.src.Entities
 {
     internal class Executor:IExecutor
     {

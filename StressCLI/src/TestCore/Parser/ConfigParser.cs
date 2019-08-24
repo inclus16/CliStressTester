@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
 using StressCLI.src.Entities;
-using StressCLI.src.TestCore.Interfaces;
+using StressCLI.src.Entities.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 
-namespace StressCLI.src.TestCore.Parser
+namespace StressCLI.src.Entities.Parser
 {
     public class ConfigParser:IConfigParser
     {

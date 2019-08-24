@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Net;
 
-namespace StressCLI.src.TestCore.ResultSetter
+namespace StressCLI.src.Entities.ResultSetter
 {
     internal class ConsoleWriter : AbstractWriter
     {

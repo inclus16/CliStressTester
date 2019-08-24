@@ -1,4 +1,4 @@
-﻿using StressCLI.src.TestCore.Interfaces;
+﻿using StressCLI.src.Entities.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;

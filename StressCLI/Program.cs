@@ -3,9 +3,9 @@ using CommandDotNet.IoC.MicrosoftDependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using StressCLI.src.Cli;
 using StressCLI.src.Cli.Commands;
-using StressCLI.src.TestCore;
-using StressCLI.src.TestCore.Interfaces;
-using StressCLI.src.TestCore.Parser;
+using StressCLI.src.Entities;
+using StressCLI.src.Entities.Interfaces;
+using StressCLI.src.Entities.Parser;
 using System;
 using System.Threading.Tasks;
 

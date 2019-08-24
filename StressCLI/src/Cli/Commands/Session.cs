@@ -1,9 +1,9 @@
 ﻿using CommandDotNet.Attributes;
 using StressCLI.src.Cli.Commands.Dto;
 using StressCLI.src.Entities;
-using StressCLI.src.TestCore;
-using StressCLI.src.TestCore.Interfaces;
-using StressCLI.src.TestCore.ResultSetter;
+using StressCLI.src.Entities;
+using StressCLI.src.Entities.Interfaces;
+using StressCLI.src.Entities.ResultSetter;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

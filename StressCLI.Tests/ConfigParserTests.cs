@@ -1,13 +1,13 @@
 using System;
 using Xunit;
-using StressCLI.src.TestCore.Parser;
+using StressCLI.src.Entities.Parser;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using StressCLI.Tests.Faker;
 using System.Linq;
-using StressCLI.src.TestCore.Interfaces;
+using StressCLI.src.Entities.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using StressCLI.src.Entities;
 

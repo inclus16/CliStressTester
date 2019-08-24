@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace StressCLI.src.TestCore.ResultSetter
+namespace StressCLI.src.Entities
 {
     public struct ResultStruct
     {

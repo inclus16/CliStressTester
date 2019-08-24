@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using StressCLI.src.TestCore.Interfaces;
+using StressCLI.src.Entities.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using StressCLI.src.Entities;
 using StressCLI.Tests.Faker;
 using Xunit;
 using System.Threading.Tasks;
-using StressCLI.src.TestCore;
+using StressCLI.src.Entities;
 
 namespace StressCLI.Tests
 {

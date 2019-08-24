@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace StressCLI.src.TestCore.Interfaces
+namespace StressCLI.src.Entities.Interfaces
 {
     public interface IRandomSeeder
     {

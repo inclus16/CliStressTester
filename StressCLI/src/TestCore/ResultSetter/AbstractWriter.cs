@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace StressCLI.src.TestCore.ResultSetter
+namespace StressCLI.src.Entities.ResultSetter
 {
     public abstract class AbstractWriter
     {

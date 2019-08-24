@@ -1,4 +1,4 @@
-﻿namespace StressCLI.src.TestCore.Parser
+﻿namespace StressCLI.src.Entities
 {
     internal enum RandomDataType
     {

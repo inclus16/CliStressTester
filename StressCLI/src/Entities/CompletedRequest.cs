@@ -2,7 +2,7 @@
 using System.Net;
 using System.Threading.Tasks;
 
-namespace StressCLI.src.TestCore.ResultSetter
+namespace StressCLI.src.Entities
 {
     public class CompletedRequest
     {

@@ -1,9 +1,9 @@
-﻿using StressCLI.src.TestCore.Interfaces;
+﻿using StressCLI.src.Entities.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace StressCLI.src.TestCore.Parser
+namespace StressCLI.src.Entities.Parser
 {
     internal class RandomSeeder:IRandomSeeder
     {
