@@ -13,20 +13,20 @@ namespace StressCLI.src.Cli.Commands.Dto
     class RunTestDto : IArgumentModel
     {
 
-        [Option(Description = "Request body in json", ShortName = "rp")]
+        [Option(Description = "Request body in json")]
         [Validation.FileExists]
         [FileExtensions(Extensions = ".json")]
         public string RequestPath { get; set; }
 
 
-        [Option(Description = "Request headers in json",ShortName = "rhp")]
+        [Option(Description = "Request headers in json")]
         [Validation.FileExists]
         [FileExtensions(Extensions = ".json")]
         public string RequestHeadersPath { get; set; }
 
         [Required]
         [Url]
-        public Uri Uri { get; set; }
+        public string Uri { get; set; }
 
         [Required]
         [EnumDataType(typeof(HttpTestMethod))]
@@ -44,7 +44,7 @@ namespace StressCLI.src.Cli.Commands.Dto
         [Range(1,50)]
         public  ushort Parallel { get; set; }
 
-        [Option(Description = "Where write results", ShortName = "rw")]
+        [Option(Description = "Where write results")]
         [Required]
         [EnumDataType(typeof(ResultWriter))]
         public ResultWriter ResultWriter { get; set; }
@@ -56,7 +56,7 @@ namespace StressCLI.src.Cli.Commands.Dto
             config.Headers = string.IsNullOrWhiteSpace(RequestHeadersPath)?null :File.ReadAllText(RequestHeadersPath);
             config.Method = Method;
             config.RequestFormat = RequestFormat;
-            config.Url = Uri;
+            config.Url = new Uri(Uri);
             config.StopSignal = StopSignal;
             config.TimeOut = TimeSpan.FromSeconds(60);//@TODO
             config.ResultWriter = ResultWriter;

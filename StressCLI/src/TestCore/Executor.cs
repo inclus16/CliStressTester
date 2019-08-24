@@ -77,8 +77,9 @@ namespace StressCLI.src.Entities
             }
             else
             {
-                CliNotifier.PrintInfo($"Request finished by: {task.TotalExecutionTime} with status code: { task.Response.Result.StatusCode}");
+
                 task.EndedAt = DateTime.Now.TimeOfDay;
+                CliNotifier.PrintInfo($"Request finished by: {task.TotalExecutionTime} with status code: { task.Response.Result.StatusCode}");
                 Completed.Add(task);
                 if (IsStopSignal(task.Response.Result))
                 {

@@ -1,7 +1,6 @@
 ﻿using CommandDotNet.Attributes;
 using StressCLI.src.Cli.Commands.Dto;
 using StressCLI.src.Entities;
-using StressCLI.src.Entities;
 using StressCLI.src.Entities.Interfaces;
 using StressCLI.src.Entities.ResultSetter;
 using System;
@@ -47,8 +46,13 @@ namespace StressCLI.src.Cli.Commands
                     break;
                 }
             }
+            List<RequestTask> result = Executor.GetResult();
+            if (result.Count==0)
+            {
+                return;
+            }
             AbstractWriter writer = WritersFactory.GetWriter(dto.ResultWriter);
-            writer.SetCompletedTasks(Executor.GetResult())
+            writer.SetCompletedTasks(result)
                 .SetStartedAtTime(Executor.GetStartedAt())
                 .SetEndedAtTime(DateTime.Now)
                 .SetStopReason(manualyStopped ? StopSignal.Manual : dto.StopSignal);
